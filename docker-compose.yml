@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  api:
+    build: ./api-upbox
+    container_name: api
+    ports:
+      - 5000:5000
+    networks:
+      - upbox
+    volumes:
+      - ./api-upbox:/usr/app
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=upbox
+      - POSTGRES_USER=upbox
+      - POSTGRES_PASSWORD=upbox
+    ports:
+      - 5432:5432
+    networks:
+      - upbox
+    volumes:
+      - ./postgres_data:/usr/postgresql/data
+
+networks:
+  upbox:
