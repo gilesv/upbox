@@ -18,11 +18,16 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.8.9
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_app_name: "upbox-api"
+          heroku_email: "viniciusgcp@gmail.com"
           appdir: api-upbox/
           justlogin: true
       
-      - run: |
-          git remote add heroku git@heroku.com:upbox-api.git
-          git push heroku `git subtree split --prefix=api-upbox/ HEAD`:master --force
+      - name: Add remote
+        run: heroku git:remote -a upbox-api
+
+      - name: Verify remote list
+        run: git remote -v
+
+      - name: Push to Heroku
+        run: git push heroku `git subtree split --prefix=api-upbox/ HEAD`:master --force
