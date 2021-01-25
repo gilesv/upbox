@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: ["Build"]
+    branches: [main]
+    types: 
+      - completed
+
+  workflow_dispatch:
+
+jobs:
+  api-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.8.9
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          appdir: api-upbox/
+          just-login: true
+      
+      - run: |
+          git remote add heroku https://git.heroku.com/upbox-api.git
+          git push heroku `git subtree split --prefix=api-upbox/ HEAD`:refs/heads/master
