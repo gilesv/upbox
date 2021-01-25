@@ -17,10 +17,10 @@ export class AppController {
   }
 
   @Post('user')
-  async createUser(@Body() userData: { name: string, email: string }): Promise<User> {
-    let { name, email } = userData;
+  async createUser(@Body() userData: { name: string, email: string, password: string }): Promise<User> {
+    let { name, email, password } = userData;
     return await this.db.user.create({
-      data: { name, email },
+      data: { name, email, password },
     });
   }
 
