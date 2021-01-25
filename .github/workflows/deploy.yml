@@ -21,8 +21,8 @@ jobs:
           heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           appdir: api-upbox/
-          just-login: true
+          justlogin: true
       
       - run: |
           git remote add heroku https://git.heroku.com/upbox-api.git
-          git push heroku `git subtree split --prefix=api-upbox/ HEAD`:refs/heads/master
+          git push heroku `git subtree split --prefix=api-upbox/ HEAD`:master --force
