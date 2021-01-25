@@ -24,5 +24,5 @@ jobs:
           justlogin: true
       
       - run: |
-          git remote add heroku https://git.heroku.com/upbox-api.git
+          git remote add heroku git@heroku.com:upbox-api.git
           git push heroku `git subtree split --prefix=api-upbox/ HEAD`:master --force
