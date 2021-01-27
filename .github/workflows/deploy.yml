@@ -22,6 +22,9 @@ jobs:
           heroku_email: "viniciusgcp@gmail.com"
           appdir: api-upbox/
           justlogin: true
+
+      - name: Verify .netrc
+        run: cat ~/.netrc
       
       - name: Add remote
         run: heroku git:remote -a upbox-api
