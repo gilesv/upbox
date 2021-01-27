@@ -1,0 +1,10 @@
+build:
+  docker:
+    web: Dockerfile
+run:
+  web: npm start
+
+release:
+  image: web
+  command:
+    - npx prisma migrate deploy --preview-feature
